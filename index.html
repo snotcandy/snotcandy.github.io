@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StuffnDirt.com - Your Source for Quality Plants</title>
+  <meta name="description" content="Find quality plants on Craigslist and Facebook Marketplace." />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; min-height: 100vh; display: flex; flex-direction: column; background: #f5f5f0; }
+
+    /* HEADER */
+    header {
+      position: sticky; top: 0; z-index: 50; width: 100%;
+      border-bottom: 1px solid #e5e7eb;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+    }
+    .header-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;
+      display: flex; height: 64px; align-items: center;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 700; font-size: 1.25rem; color: #16a34a; text-decoration: none;
+    }
+    .logo:hover { color: #15803d; }
+    .logo svg { width: 24px; height: 24px; }
+
+    /* HERO */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('images/splash.jpg');
+      background-size: 70%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: #1a1a1a;
+    }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+    .hero-content {
+      position: relative; z-index: 10; text-align: center; color: white;
+      padding: 5rem 1.5rem; max-width: 1280px; margin: 0 auto;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 4px 16px rgba(0,0,0,0.6);
+    }
+    .hero-content h1 { font-size: clamp(2rem, 6vw, 3.75rem); font-weight: 700; margin-bottom: 1.5rem; line-height: 1.15; }
+    .hero-content .subtitle { font-size: clamp(1.1rem, 2.5vw, 1.5rem); margin-bottom: 1.5rem; color: rgba(255,255,255,0.92); max-width: 48rem; margin-left: auto; margin-right: auto; }
+    .hero-content .description { font-size: 1.1rem; margin-bottom: 3rem; color: rgba(255,255,255,0.9); max-width: 40rem; margin-left: auto; margin-right: auto; font-weight: 500; line-height: 1.6; }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.65rem 2rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.3); white-space: nowrap; }
+    .btn-green { background: #16a34a; color: white; border: 2px solid #16a34a; }
+    .btn-green:hover { background: #15803d; }
+    .btn-white { background: white; color: #111827; border: 2px solid white; }
+    .btn-white:hover { background: #f3f4f6; }
+
+    /* BANNED SECTION */
+    .banned {
+      position: relative; min-height: 360px;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .banned-bg {
+      position: absolute; inset: 0;
+      background-image: url('images/crew11.png');
+      background-size: cover; background-position: center bottom; background-repeat: no-repeat;
+    }
+    .banned-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.58); }
+    .banned-content {
+      position: relative; z-index: 10; text-align: center; color: white;
+      padding: 4rem 1.5rem; max-width: 700px; margin: 0 auto;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+    .banned-content h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; margin-bottom: 2rem; }
+    .banned-content ul { list-style: none; display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+    .banned-content ul li { font-size: 1.05rem; color: rgba(255,255,255,0.92); line-height: 1.5; padding-left: 1.2rem; border-left: 3px solid #86efac; }
+    .banned-content ul li strong { color: white; display: block; margin-bottom: 0.2rem; }
+
+    /* PLANT GRID */
+    .plants { background: #fafaf8; padding: 5rem 1.5rem; }
+    .plants-inner { max-width: 1100px; margin: 0 auto; }
+    .plant-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .plant-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .plant-card img { width: 100%; height: 260px; object-fit: contain; background: #f1f1ec; display: block; }
+    .plant-card-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .plant-card-body h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #111827; }
+    .plant-card-body p { font-size: 0.95rem; color: #6b7280; line-height: 1.5; }
+
+    @media (max-width: 640px) {
+      .plant-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+        </svg>
+        <span>StuffnDirt.com</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Welcome to StuffnDirt.com</h1>
+      <p class="subtitle">Your trusted source for quality plants</p>
+      <p class="description">Discover a wide variety of healthy plants from local sellers on Craigslist and Facebook Marketplace. From indoor greenery to outdoor gardens, find your perfect plant today.</p>
+      <div class="btn-group">
+        <a href="https://spacecoast.craigslist.org/search/sss?userpostingid=7937296756#search=2~gallery~0" target="_blank" rel="noopener noreferrer" class="btn btn-green">Browse on Craigslist</a>
+        <a href="https://www.facebook.com/marketplace/profile/1698835133" target="_blank" rel="noopener noreferrer" class="btn btn-white">Shop on Facebook Marketplace</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plant Grid -->
+  <section class="plants">
+    <div class="plants-inner">
+      <div class="plant-grid">
+        <div class="plant-card">
+          <img src="images/CRAN_SOR.jpg" alt="Indoor Plants">
+          <div class="plant-card-body">
+            <h3>Indoor Plants</h3>
+            <p>Perfect for brightening up your living space with low-maintenance greenery.</p>
+          </div>
+        </div>
+        <div class="plant-card">
+          <img src="images/bone_meal.jpg" alt="Mother Nature">
+          <div class="plant-card-body">
+            <h3>Mother Nature</h3>
+            <p>What to do with chicken bones when making dog food</p>
+          </div>
+        </div>
+        <div class="plant-card">
+          <img src="images/cherry.jpg" alt="Outdoor Plants">
+          <div class="plant-card-body">
+            <h3>Outdoor Plants</h3>
+            <p>Transform your garden with vibrant flowers, shrubs, and ornamental plants.</p>
+          </div>
+        </div>
+        <div class="plant-card">
+          <img src="images/rook_bam.png" alt="Bamboo">
+          <div class="plant-card-body">
+            <h3>Bamboo</h3>
+            <p>Not only helps during hurricane great for the garden also</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banned Chemicals Banner -->
+  <section class="banned">
+    <div class="banned-bg"></div>
+    <div class="banned-overlay"></div>
+    <div class="banned-content">
+      <h2>Banned Usage of Toxins and Chemicals</h2>
+    </div>
+  </section>
+
+</body>
+</html>
